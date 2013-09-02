@@ -6,22 +6,37 @@ WERKOPDRACHTEN LES 1
 In 2tallen: Noteer voor- en nadelen van jQuery (minimaal 5 van ieder)
 
 Voordelen:
-1. Crossbrowser functies (minder schrijfwerk)
-2. Grote community
-3. Handige pre-fabs: Ajax calls, animaties
+1. Crossbrowser functies
+2. Ingewikkelde functies zijn versimpeld 
+3. Grote community
+4. Handige pre-fabs: Ajax calls, animaties
+5. DOM selecties zijn makkelijker uit te voeren
 
 Nadelen:
-1. Kost veel rekenkracht, dus batterij wordt leger
+1. Kost veel rekenkracht, dus batterij sneller leeg
 2. Je leert/begrijpt Javascript minder goed
+3. Kwaliteit van de code vaak slechter
+4. jQuery library is erg groot, maakt je website trager
+5. Je schrijft snel inefficient met jQuery
 
 
 **Opdracht 1.2: Functionaliteiten jQuery**  
 Noem de belangrijkste functionaliteiten van jQuery (minimaal 5)
-1. Makkelijk elementen toevoegen/verwijderen 
+1. Animaties & effecten maken
+2. CSS aanpassen
+3. Ondersteunt AJAX
+4. Veel handige plugins beschikbaar
+5. DOM selecties maken
 
 **Opdracht 1.3: Micro libraries**  
 Zoek op http://microjs.org naar libraries voor elke van de functionaliteiten gevonden bij opdracht 1.2 
 (deel jQuery op in verschillende micro libs). Kies voor elke functie een micro library (vergelijk en beoordeel op kwaliteit)
+1. Vivi
+2. picoCSS
+3. Zepto
+4. -
+5. TinyDOM
+
 
 
 #####*2: Objects (30 minuten)*
