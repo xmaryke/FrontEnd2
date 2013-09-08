@@ -46,7 +46,9 @@ Maak met een object constructor een ‘Persoon’-object aan met de property ‘
 En maak een nieuwe instantie aan van dit object waarbij je de naam ‘Bob’ meegeeft als parameter van het object 
 
 function Persoon(name){
-	this.speak = function (){};
+	this.speak = function (){
+		console.log("Persoon zegt: ik heet" + name );
+	};
 }
 
 var bob = new Persoon(Bob);
@@ -55,8 +57,13 @@ var bob = new Persoon(Bob);
 **Opdracht 2.2: Prototype**  
 Voeg de methods ‘walk’ en ‘eat’ toe aan het ‘Persoon’-object met de prototype function van het object
 
-Persoon.prototype.walk = function (){};
-Persoon.prototype.eat = function (){};
+Persoon.prototype.walk = function (){
+		console.log("Persoon loopt");
+	};
+	
+Persoon.prototype.eat = function (){
+		console.log("Persoon eet");
+	};
 
 
 
@@ -65,9 +72,15 @@ Maak nu hetzelfde object, met dezelfde properties en methods aan met een object 
 
 var Persoon = {
 	name:'Bob';
-	speak: function (){};
-	walk: function (){};
-	eat: function (){};
+	speak: function (){
+		console.log("Persoon zegt: ik heet" + name );	
+	};
+	walk: function (){
+		console.log("Persoon loopt");	
+	};
+	eat: function (){
+		console.log("Persoon eet");
+	};
 }
 
 
