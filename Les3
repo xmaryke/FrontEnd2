@@ -1,0 +1,113 @@
+//Namespace
+var SCOREAPP = SCOREAPP || {};
+
+// self invoking anonymous function
+(function(){
+	
+    //Controller
+    SCOREAPP.controller = {
+    init: function(){
+    		SCOREAPP.router.init(); 
+    	}
+    };
+
+
+    //Router --> Routie
+    SCOREAPP.router = {
+        init: function (){
+            routie({
+                //Maak pagina's aan
+                '/game': function() {
+                	console.log("routie game");
+                    Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
+                    SCOREAPP.router.change();
+                },
+                '/schedule': function() {
+                	console.log("routie schedule");
+                    Transparency.render(qwery('[data-route=schedule]')[0], SCOREAPP.schedule);
+                    SCOREAPP.router.change();
+                },
+                '/ranking': function() {
+                	console.log("routie ranking");
+                    Transparency.render(qwery('[data-route=ranking]')[0], SCOREAPP.ranking);
+                    SCOREAPP.router.change();
+                },
+                //uitvoer als het onbekend is
+                '*': function() {
+                    console.log("routie onbekend");
+                    Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
+                    SCOREAPP.router.change();
+                }
+            });
+        },
+
+        //Switch van pagina
+        change: function () {
+            var route = window.location.hash.slice(2),
+                sections = qwery('section[data-route]'),
+                section = qwery('[data-route=' + route + ']')[0];  
+
+            // Show active section, hide all other
+            if (section) {
+                for (var i=0; i < sections.length; i++){
+                    sections[i].classList.remove('active');
+                }
+                section.classList.add('active');
+            }
+
+            // Default route
+            if (!route) {
+                sections[0].classList.add('active');
+            }
+        }
+
+    };
+
+
+    //Data pagina's
+    SCOREAPP.game = {
+        title:'VCH DS1 vs. SVU DS1',
+        winnaar:'VCH DS1',
+        uitslag:'3 - 2',
+        verliezer:'SVU DS1', 
+        sets: [
+            {
+                nr: '1',
+                punten: '22 - 25'
+            }, 
+            {
+                nr: '2',
+                punten: '25 - 11'
+            }, 
+            {
+                nr: '3',
+                punten: '21 - 25'
+            }, 
+            {
+                nr: '4',
+                punten: '25 - 20'
+            }, 
+            {
+                nr: '5',
+                punten: '15 - 11'
+            }
+        ]
+    };
+
+    SCOREAPP.schedule = {
+        title:'Schedule2',
+        description:'Pagina 2 is de tweede pagina'
+    };
+
+    SCOREAPP.ranking = {
+        title:'Ranking3',
+        description:'Pagina 3 is de derde pagina'
+    };
+
+    //DOM ready
+    domready(function () {
+    	// Start app
+    	SCOREAPP.controller.init();
+    });
+
+})();
