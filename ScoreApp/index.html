@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NEVOBO competitiewedstrijden VCH Dames 1</title>
+	<link href="scoreapp.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<header>
+		<h1>NEVOBO competitiewedstrijden VCH Dames 1</h1>
+		<h2>Poule: Dames Promotieklasse B</h2>
+		<nav>
+			<ul>
+				<li><a href="#/game">Game</a></li>
+				<li><a href="#/schedule">Schedule</a></li>
+				<li><a href="#/ranking">Ranking</a></li>
+		    </ul>
+		</nav>
+	</header>
+
+	<article id="content" class="col">
+		
+		<section data-route="game" class="active">
+			<h1 data-bind="title"></h1>
+			 <table>
+                <tr>
+                    <th>Winnaar</th>
+                    <th>Uitslag</th>
+                    <th>Verliezer</th>
+                </tr>
+                <tr>
+                    <td data-bind="winnaar"></td>
+                    <td data-bind="uitslag"></td>
+                    <td data-bind="verliezer"></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>Set</th>
+                    <th>Winnaar</th>
+                    <th>Punten</th>
+                    <th>Verliezer</th>
+                </tr>
+                <tbody data-bind="sets">
+                <tr data-bind="set">
+	                <td data-bind="nr"></td>
+	                <td data-bind="winnaar"></td>
+	                <td data-bind="punten"></td>
+	                <td data-bind="verliezer"></td>
+                </tr>
+                </tbody>
+   			</table>
+		</section>
+
+		<section data-route="schedule">
+			<h1 data-bind="title"></h1>
+			<p data-bind="description"></p>
+		</section>
+
+		<section data-route="ranking">
+			<h1 data-bind="title"></h1>
+			<p data-bind="description"></p>
+		</section>
+	</article>
+
+	<!-- Libraries -->
+	<script src="lib/routie.min.js"></script>
+	<script src="lib/ready.min.js" type="text/javascript"></script>
+	<script src="lib/qwery.min.js" type="text/javascript"></script>
+	<script src="lib/transparency.min.js" type="text/javascript"></script>
+
+	<!-- Application -->
+	<script src="scoreApp.js"></script>
+
+</body>
+</html>
