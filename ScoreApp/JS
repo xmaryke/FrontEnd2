@@ -16,7 +16,7 @@ var SCOREAPP = SCOREAPP || {};
     SCOREAPP.router = {
         init: function (){
             routie({
-                //Maak pagina's aan
+                //Maak pagina's aan //COMMENTAAR IN ENGELS
                 '/game': function() {
                 	console.log("routie game");
                     Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
