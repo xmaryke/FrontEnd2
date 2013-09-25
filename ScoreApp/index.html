@@ -2,14 +2,13 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>NEVOBO competitiewedstrijden VCH Dames 1</title>
+	<title>Threesome Ultimate Frisbee Score-app</title>
 	<link href="scoreapp.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 	<header>
-		<h1>NEVOBO competitiewedstrijden VCH Dames 1</h1>
-		<h2>Poule: Dames Promotieklasse B</h2>
+		<h1>Tournament: Amsterdam Ultimate Autumn</h1>
 		<nav>
 			<ul>
 				<li><a href="#/game">Game</a></li>
@@ -20,34 +19,37 @@
 	</header>
 
 	<article id="content" class="col">
-		
 		<section data-route="game" class="active">
 			<h1 data-bind="title"></h1>
 			 <table>
                 <tr>
-                    <th>Winnaar</th>
+                    <th>Team A</th>
                     <th>Uitslag</th>
-                    <th>Verliezer</th>
+                    <th>Team B</th>
                 </tr>
                 <tr>
-                    <td data-bind="winnaar"></td>
-                    <td data-bind="uitslag"></td>
-                    <td data-bind="verliezer"></td>
+                    <td data-bind="winner"></td>
+                    <td data-bind="result"></td>
+                    <td data-bind="loser"></td>
                 </tr>
             </table>
             <table>
                 <tr>
-                    <th>Set</th>
-                    <th>Winnaar</th>
+                    <th>Score</th>
+                    <th>Team A</th>
                     <th>Punten</th>
-                    <th>Verliezer</th>
+                    <th>Team B</th>
                 </tr>
-                <tbody data-bind="sets">
-                <tr data-bind="set">
-	                <td data-bind="nr"></td>
-	                <td data-bind="winnaar"></td>
-	                <td data-bind="punten"></td>
-	                <td data-bind="verliezer"></td>
+                <tbody data-bind="competitions">
+                <tr data-bind="competition">
+	                <td data-bind="score"></td>
+	                <td data-bind="team1"></td>
+	                <td>
+	                	<span data-bind="team1Score"></span>
+	                	-
+	                	<span data-bind="team2Score"></span>
+	                </td>
+	                <td data-bind="team2"></td>
                 </tr>
                 </tbody>
    			</table>
@@ -55,12 +57,49 @@
 
 		<section data-route="schedule">
 			<h1 data-bind="title"></h1>
-			<p data-bind="description"></p>
+			<table>
+                <tr>
+                    <th>Monday 18 March</th>
+                    <th>Team</th>
+                    <th>Result</th>
+                    <th>Team</th>
+                </tr>
+                <tbody data-bind="schedules">
+                <tr data-bind="schedule">
+                    <td data-bind="date"></td>
+                    <td data-bind="team1"></td>
+                    <td>
+                    	<span data-bind="team1Score"></span>
+	                	-
+	                	<span data-bind="team2Score"></span>
+                    </td>
+                    <td data-bind="team2"></td>
+                </tr>
+            </tbody>
+        </table>
 		</section>
 
 		<section data-route="ranking">
 			<h1 data-bind="title"></h1>
-			<p data-bind="description"></p>
+			<table>
+                <tr>
+                    <th>Team</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>Points won</th>
+                    <th>Points lost</th>
+                    <th>+/-</th>
+                </tr>
+            <tbody data-bind="rankings">
+                <tr data-bind="ranking">
+                    <td data-bind="team"></td>
+                    <td data-bind="Win"></td>
+                    <td data-bind="Lost"></td>
+                    <td data-bind="Sw"></td>
+                    <td data-bind="Sl"></td>
+                    <td data-bind="Sc"></td>
+                </tr>
+            </tbody>
 		</section>
 	</article>
 
