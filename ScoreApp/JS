@@ -12,11 +12,11 @@ var SCOREAPP = SCOREAPP || {};
     };
 
 
-    //Router --> Routie
+    //Router --> Routie library
     SCOREAPP.router = {
         init: function (){
             routie({
-                //Maak pagina's aan
+                //Create pages
                 '/game': function() {
                 	console.log("routie game");
                     Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
@@ -32,16 +32,16 @@ var SCOREAPP = SCOREAPP || {};
                     Transparency.render(qwery('[data-route=ranking]')[0], SCOREAPP.ranking);
                     SCOREAPP.router.change();
                 },
-                //uitvoer als het onbekend is
+                //Default output
                 '*': function() {
-                    console.log("routie onbekend");
+                    console.log("routie default");
                     Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
                     SCOREAPP.router.change();
                 }
             });
         },
 
-        //Switch van pagina
+        //Switch to another page
         change: function () {
             var route = window.location.hash.slice(2),
                 sections = qwery('section[data-route]'),
@@ -64,49 +64,71 @@ var SCOREAPP = SCOREAPP || {};
     };
 
 
-    //Data pagina's
+    //Data of page game
     SCOREAPP.game = {
-        title:'VCH DS1 vs. SVU DS1',
-        winnaar:'VCH DS1',
-        uitslag:'3 - 2',
-        verliezer:'SVU DS1', 
-        sets: [
-            {
-                nr: '1',
-                punten: '22 - 25'
-            }, 
-            {
-                nr: '2',
-                punten: '25 - 11'
-            }, 
-            {
-                nr: '3',
-                punten: '21 - 25'
-            }, 
-            {
-                nr: '4',
-                punten: '25 - 20'
-            }, 
-            {
-                nr: '5',
-                punten: '15 - 11'
-            }
+        title:'Pool A - Score: Boomsquad vs. Burning Snow',
+        winner:'Boomsquad',
+        result:'15 - 8',
+        loser:'Burning Snow', 
+        competitions: [
+            { score: "1", team1: "Boomsquad", team1Score: "1", team2: "Burning Snow", team2Score: "0"},
+            { score: "2", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "0"},
+            { score: "3", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "1"},
+            { score: "4", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "2"},
+            { score: "5", team1: "Boomsquad", team1Score: "3", team2: "Burning Snow", team2Score: "2"},
+            { score: "6", team1: "Boomsquad", team1Score: "4", team2: "Burning Snow", team2Score: "2"},
+            { score: "7", team1: "Boomsquad", team1Score: "5", team2: "Burning Snow", team2Score: "2"},
+            { score: "8", team1: "Boomsquad", team1Score: "5", team2: "Burning Snow", team2Score: "3"},
+            { score: "9", team1: "Boomsquad", team1Score: "6", team2: "Burning Snow", team2Score: "3"},
+            { score: "10", team1: "Boomsquad", team1Score: "7", team2: "Burning Snow", team2Score: "3"},
+            { score: "11", team1: "Boomsquad", team1Score: "7", team2: "Burning Snow", team2Score: "4"},
+            { score: "12", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "4"},
+            { score: "13", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "5"},
+            { score: "14", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "6"},
+            { score: "15", team1: "Boomsquad", team1Score: "9", team2: "Burning Snow", team2Score: "6"},
+            { score: "16", team1: "Boomsquad", team1Score: "9", team2: "Burning Snow", team2Score: "7"},
+            { score: "17", team1: "Boomsquad", team1Score: "10", team2: "Burning Snow", team2Score: "7"},
+            { score: "18", team1: "Boomsquad", team1Score: "11", team2: "Burning Snow", team2Score: "7"},
+            { score: "19", team1: "Boomsquad", team1Score: "12", team2: "Burning Snow", team2Score: "7"},
+            { score: "20", team1: "Boomsquad", team1Score: "13", team2: "Burning Snow", team2Score: "7"},
+            { score: "21", team1: "Boomsquad", team1Score: "14", team2: "Burning Snow", team2Score: "7"},
+            { score: "22", team1: "Boomsquad", team1Score: "14", team2: "Burning Snow", team2Score: "8"},
+            { score: "23", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"}
         ]
     };
 
+    //Data of page schedule
     SCOREAPP.schedule = {
-        title:'Schedule2',
-        description:'Pagina 2 is de tweede pagina'
+        title:'Pool A - Schedule',
+        schedules: [
+            { date: "Monday, 9:00am", team1: "Chasing", team1Score: "13", team2: "Amsterdam Money Gang", team2Score: "9"},
+            { date: "Monday, 9:00am", team1: "Boomsquad", team1Score: "15", team2: "Beast Amsterdam", team2Score: "11"},
+            { date: "Monday, 10:00am", team1: "Beast Amsterdam", team1Score: "14", team2: "Amsterdam Money Gang", team2Score: "12"},
+            { date: "Monday, 10:00am", team1: "Chasing", team1Score: "5", team2: "Burning Snow", team2Score: "15"},
+            { date: "Monday, 11:00am", team1: "Boomsquad", team1Score: "11", team2: "Amsterdam Money Gang", team2Score: "15"},    
+            { date: "Monday, 11:00am", team1: "Burning Snow", team1Score: "15", team2: "Beast Amsterdam", team2Score: "6"},
+            { date: "Monday, 12:00pm", team1: "Chasing", team1Score: "8", team2: "Beast Amsterdam", team2Score: "15"},
+            { date: "Monday, 12:00pm", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"},
+            { date: "Monday, 1:00pm", team1: "Chasing", team1Score: "15", team2: "Boomsquad", team2Score: "14"},
+            { date: "Monday, 1:00pm", team1: "Burning Snow", team1Score: "15", team2: "Amsterdam Money Gang", team2Score: "11"}
+        ]
     };
 
+    //Data of page ranking
     SCOREAPP.ranking = {
-        title:'Ranking3',
-        description:'Pagina 3 is de derde pagina'
+        title:'Pool A - Ranking',
+        rankings: [
+            { team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Sc: "-4"},
+            { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Sc: "2"},
+            { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Sc: "13"},
+            { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Sc: "-4"},
+            { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Sc: "-7"}
+            ]
     };
-   
+
     //DOM ready
     domready(function () {
-    	// Start app
+    	// Start application
     	SCOREAPP.controller.init();
     });
 
