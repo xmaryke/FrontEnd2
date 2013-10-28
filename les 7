@@ -21,7 +21,8 @@ var SCOREAPP = SCOREAPP || {};
     SCOREAPP.router = {
         init: function (){
             routie({
-                //Create pages
+                //Create pages 
+                //Functions aren't created here, routie just says that when the URL has changed in some way, do something. The something is that SCOREAPP.datas.game is being executed, which just renders the page, it doesn't create it.
                 '/game': function() {
                     document.getElementById('floatingBarsG').style.display = "block";
                 	console.log("routie game");
