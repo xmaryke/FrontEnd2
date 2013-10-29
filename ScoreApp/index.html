@@ -2,108 +2,98 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Threesome Ultimate Frisbee Score-app</title>
+	<title>Frisbee Score-app</title>
 	<link href="scoreapp.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 	<header>
-		<h1>Tournament: Amsterdam Ultimate Autumn</h1>
+        <h1>Frisbee Score App</h1>
+		<h2>Tournament: Amsterdam Ultimate Autumn</h2>
 		<nav>
 			<ul>
-				<li><a href="#/game">Game</a></li>
 				<li><a href="#/schedule">Schedule</a></li>
 				<li><a href="#/ranking">Ranking</a></li>
 		    </ul>
 		</nav>
 	</header>
 
-	<article id="content" class="col">
-		<section data-route="game" class="active">
-			<h1 data-bind="title"></h1>
-			 <table>
-                <tr>
-                    <th>Team A</th>
-                    <th>Uitslag</th>
-                    <th>Team B</th>
-                </tr>
-                <tr>
-                    <td data-bind="winner"></td>
-                    <td data-bind="result"></td>
-                    <td data-bind="loser"></td>
-                </tr>
-            </table>
+    <div id="floatingBarsG"><!-- http://cssload.net/ -->
+        <div class="blockG" id="rotateG_01"></div>
+        <div class="blockG" id="rotateG_02"></div>
+        <div class="blockG" id="rotateG_03"></div>
+        <div class="blockG" id="rotateG_04"></div>
+        <div class="blockG" id="rotateG_05"></div>
+        <div class="blockG" id="rotateG_06"></div>
+        <div class="blockG" id="rotateG_07"></div>
+        <div class="blockG" id="rotateG_08"></div>
+    </div>
+
+        <article id="content" class="col">
+        <section data-route="schedule" class="active">
+            <h1>Schedule: Pool D</h1>
             <table>
                 <tr>
-                    <th>Score</th>
-                    <th>Team A</th>
-                    <th>Punten</th>
-                    <th>Team B</th>
-                </tr>
-                <tbody data-bind="competitions">
-                <tr data-bind="competition">
-	                <td data-bind="score"></td>
-	                <td data-bind="team1"></td>
-	                <td>
-	                	<span data-bind="team1Score"></span>
-	                	-
-	                	<span data-bind="team2Score"></span>
-	                </td>
-	                <td data-bind="team2"></td>
-                </tr>
-                </tbody>
-   			</table>
-		</section>
-
-		<section data-route="schedule">
-			<h1 data-bind="title"></h1>
-			<table>
-                <tr>
-                    <th>Monday 18 March</th>
+                    <th>Monday 21 October</th>
                     <th>Team</th>
                     <th>Result</th>
                     <th>Team</th>
                 </tr>
-                <tbody data-bind="schedules">
-                <tr data-bind="schedule">
-                    <td data-bind="date"></td>
-                    <td data-bind="team1"></td>
-                    <td>
-                    	<span data-bind="team1Score"></span>
-	                	-
-	                	<span data-bind="team2Score"></span>
+                <tbody data-bind="objects">
+                <tr data-bind="object">
+                    <td data-bind="start_time"></td>   
+                    <td data-bind="team_1"><span data-bind="name"></span></td>
+                    <td><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span>
+                    <a href="#/game" id="id">Edit</a>
                     </td>
-                    <td data-bind="team2"></td>
+                    <td data-bind="team_2"><span data-bind="name"></span></td>
                 </tr>
             </tbody>
         </table>
-		</section>
+        </section>
+
+        <section data-route="game">
+            <h1>Game score</h1>
+            <form id="postScoreForm" method="post" action="index.html#/schedule">
+            <label for="team1score" data-bind="team_1"><span data-bind="name"></span></label>
+            <input type="number" name="team1score" data-bind="team_1_score"><br/>
+            <label for="team2score" data-bind="team_2"><span data-bind="name"></span></label>
+            <input type="number" name="team2score" data-bind="team_2_score"><br/>
+            <label for="final">Is this the final score?</label>
+            <input name="final" type="radio" value="yes">Yes
+            <input name="final" type="radio" value="no">No <br/>
+            <input type="submit" value="Stuur score">
+            </form>
+        </section>
 
 		<section data-route="ranking">
-			<h1 data-bind="title"></h1>
+			<h1>Ranking: Pool D</h1>
 			<table>
                 <tr>
                     <th>Team</th>
-                    <th>W</th>
-                    <th>L</th>
+                    <th>Games played</th>
+                    <th>Games won</th>
+                    <th>Games lost</th>
                     <th>Points won</th>
                     <th>Points lost</th>
                     <th>+/-</th>
                 </tr>
-            <tbody data-bind="rankings">
-                <tr data-bind="ranking">
-                    <td data-bind="team"></td>
-                    <td data-bind="Win"></td>
-                    <td data-bind="Lost"></td>
-                    <td data-bind="Sw"></td>
-                    <td data-bind="Sl"></td>
-                    <td data-bind="Sc"></td>
+            <tbody data-bind="standings">
+                <tr data-bind="standing">
+                    <td data-bind="team"><span data-bind="name"></span></td>
+                    <td data-bind="games_played"></td>
+                    <td data-bind="wins"></td>
+                    <td data-bind="losses"></td>
+                    <td data-bind="points_scored"></td>
+                    <td data-bind="points_allowed"></td>
+                    <td data-bind="plus_minus"></td>
                 </tr>
             </tbody>
 		</section>
-	</article>
+	</article> 
 
 	<!-- Libraries -->
+    <script src="lib/fermata.js"></script>
 	<script src="lib/routie.min.js"></script>
 	<script src="lib/ready.min.js" type="text/javascript"></script>
 	<script src="lib/qwery.min.js" type="text/javascript"></script>
