@@ -11,32 +11,37 @@ var SCOREAPP = SCOREAPP || {};
     	}
     };
 
+    //Set data objects to zero
+    SCOREAPP.game = null;
+    SCOREAPP.schedule = null;
+    SCOREAPP.ranking = null; 
 
+    
     //Router --> Routie library
     SCOREAPP.router = {
         init: function (){
             routie({
                 //Create pages
                 '/game': function() {
+                    document.getElementById('floatingBarsG').style.display = "block";
                 	console.log("routie game");
-                    Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
-                    SCOREAPP.router.change();
+                    SCOREAPP.datas.game();
                 },
                 '/schedule': function() {
+                    document.getElementById('floatingBarsG').style.display = "block";
                 	console.log("routie schedule");
-                    Transparency.render(qwery('[data-route=schedule]')[0], SCOREAPP.schedule);
-                    SCOREAPP.router.change();
+                    SCOREAPP.datas.schedule();
                 },
                 '/ranking': function() {
+                    document.getElementById('floatingBarsG').style.display = "block";
                 	console.log("routie ranking");
-                    Transparency.render(qwery('[data-route=ranking]')[0], SCOREAPP.ranking);
-                    SCOREAPP.router.change();
+                    SCOREAPP.datas.ranking();
                 },
                 //Default output
                 '*': function() {
+                    document.getElementById('floatingBarsG').style.display = "block";
                     console.log("routie default");
-                    Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
-                    SCOREAPP.router.change();
+                    SCOREAPP.datas.schedule();
                 }
             });
         },
@@ -63,73 +68,109 @@ var SCOREAPP = SCOREAPP || {};
 
     };
 
+    // Post gamescore
+    SCOREAPP.update = {
+        gamescore: function (){
+            var site = fermata.json("https://api.leaguevine.com/v1/game_scores/");
+            var post = site.post(
+                        {
+                            'Content-Type':"application/json",
+                            'Authorization':"bearer a6abfe991a"
+                        },
+                        {
+                            game_id: "127238",
+                            team_1_score: "66",
+                            team_2_score: "22",
+                            is_final: "False"
+                        }, 
+            function (error, result) {
+            if (!error) {
+                console.log("Posten is gelukt");
+            } else {
+                console.warn(error);
+            }
+            });
+        }
+    }
 
-    //Data of page game
-    SCOREAPP.game = {
-        title:'Pool A - Score: Boomsquad vs. Burning Snow',
-        winner:'Boomsquad',
-        result:'15 - 8',
-        loser:'Burning Snow', 
-        competitions: [
-            { score: "1", team1: "Boomsquad", team1Score: "1", team2: "Burning Snow", team2Score: "0"},
-            { score: "2", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "0"},
-            { score: "3", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "1"},
-            { score: "4", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "2"},
-            { score: "5", team1: "Boomsquad", team1Score: "3", team2: "Burning Snow", team2Score: "2"},
-            { score: "6", team1: "Boomsquad", team1Score: "4", team2: "Burning Snow", team2Score: "2"},
-            { score: "7", team1: "Boomsquad", team1Score: "5", team2: "Burning Snow", team2Score: "2"},
-            { score: "8", team1: "Boomsquad", team1Score: "5", team2: "Burning Snow", team2Score: "3"},
-            { score: "9", team1: "Boomsquad", team1Score: "6", team2: "Burning Snow", team2Score: "3"},
-            { score: "10", team1: "Boomsquad", team1Score: "7", team2: "Burning Snow", team2Score: "3"},
-            { score: "11", team1: "Boomsquad", team1Score: "7", team2: "Burning Snow", team2Score: "4"},
-            { score: "12", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "4"},
-            { score: "13", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "5"},
-            { score: "14", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "6"},
-            { score: "15", team1: "Boomsquad", team1Score: "9", team2: "Burning Snow", team2Score: "6"},
-            { score: "16", team1: "Boomsquad", team1Score: "9", team2: "Burning Snow", team2Score: "7"},
-            { score: "17", team1: "Boomsquad", team1Score: "10", team2: "Burning Snow", team2Score: "7"},
-            { score: "18", team1: "Boomsquad", team1Score: "11", team2: "Burning Snow", team2Score: "7"},
-            { score: "19", team1: "Boomsquad", team1Score: "12", team2: "Burning Snow", team2Score: "7"},
-            { score: "20", team1: "Boomsquad", team1Score: "13", team2: "Burning Snow", team2Score: "7"},
-            { score: "21", team1: "Boomsquad", team1Score: "14", team2: "Burning Snow", team2Score: "7"},
-            { score: "22", team1: "Boomsquad", team1Score: "14", team2: "Burning Snow", team2Score: "8"},
-            { score: "23", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"}
-        ]
+    // Get data from API for each page
+    SCOREAPP.datas = {
+        game: function () {    
+            if(!SCOREAPP.game){     
+                 var site = fermata.json("https://api.leaguevine.com/v1/games/127238/?access_token=857668913c");
+                 var get = site.get(function (err, result) {
+                   if (!err) {
+                        SCOREAPP.game = result;
+                        Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
+                        document.getElementById('floatingBarsG').style.display = "none";
+                        SCOREAPP.router.change();
+                   }  
+                });
+            }else{
+                        Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
+                        document.getElementById('floatingBarsG').style.display = "none";
+                        SCOREAPP.router.change();
+                   }
+        },
+
+        schedule: function(){
+            if(!SCOREAPP.schedule){     
+                 var site = fermata.json("https://api.leaguevine.com/v1/games/?tournament_id=19389&pool_id=19222");
+                 var get = site.get(function (err, result) {
+                   if (!err) {
+                        SCOREAPP.schedule = result;
+                        console.log(result);
+                        Transparency.render(qwery('[data-route=schedule]')[0], SCOREAPP.schedule);
+                        document.getElementById('floatingBarsG').style.display = "none";
+                        SCOREAPP.router.change();
+                   }
+                });
+            }else {
+                        Transparency.render(qwery('[data-route=schedule]')[0], SCOREAPP.schedule);
+                        document.getElementById('floatingBarsG').style.display = "none";
+                        SCOREAPP.router.change();
+                   }  
+        },
+
+        ranking: function () {    
+            if(!SCOREAPP.ranking){     
+                 var site = fermata.json("https://api.leaguevine.com/v1/pools/19222/?access_token=e772a86109");
+                 var get = site.get(function (err, result) {
+                   if (!err) {
+                        SCOREAPP.ranking = result;
+                        Transparency.render(qwery('[data-route=ranking]')[0], SCOREAPP.ranking);
+                        document.getElementById('floatingBarsG').style.display = "none";
+                        SCOREAPP.router.change();
+                   } 
+                });
+            }else{
+                        Transparency.render(qwery('[data-route=ranking]')[0], SCOREAPP.ranking);
+                        document.getElementById('floatingBarsG').style.display = "none";
+                        SCOREAPP.router.change();
+                   } 
+        }
     };
 
-    //Data of page schedule
-    SCOREAPP.schedule = {
-        title:'Pool A - Schedule',
-        schedules: [
-            { date: "Monday, 9:00am", team1: "Chasing", team1Score: "13", team2: "Amsterdam Money Gang", team2Score: "9"},
-            { date: "Monday, 9:00am", team1: "Boomsquad", team1Score: "15", team2: "Beast Amsterdam", team2Score: "11"},
-            { date: "Monday, 10:00am", team1: "Beast Amsterdam", team1Score: "14", team2: "Amsterdam Money Gang", team2Score: "12"},
-            { date: "Monday, 10:00am", team1: "Chasing", team1Score: "5", team2: "Burning Snow", team2Score: "15"},
-            { date: "Monday, 11:00am", team1: "Boomsquad", team1Score: "11", team2: "Amsterdam Money Gang", team2Score: "15"},    
-            { date: "Monday, 11:00am", team1: "Burning Snow", team1Score: "15", team2: "Beast Amsterdam", team2Score: "6"},
-            { date: "Monday, 12:00pm", team1: "Chasing", team1Score: "8", team2: "Beast Amsterdam", team2Score: "15"},
-            { date: "Monday, 12:00pm", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"},
-            { date: "Monday, 1:00pm", team1: "Chasing", team1Score: "15", team2: "Boomsquad", team2Score: "14"},
-            { date: "Monday, 1:00pm", team1: "Burning Snow", team1Score: "15", team2: "Amsterdam Money Gang", team2Score: "11"}
-        ]
-    };
-
-    //Data of page ranking
-    SCOREAPP.ranking = {
-        title:'Pool A - Ranking',
-        rankings: [
-            { team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Sc: "-4"},
-            { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Sc: "2"},
-            { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Sc: "13"},
-            { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Sc: "-4"},
-            { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Sc: "-7"}
-            ]
-    };
 
     //DOM ready
     domready(function () {
-    	// Start application
-    	SCOREAPP.controller.init();
+        // Start application
+        SCOREAPP.controller.init();
+        SCOREAPP.update.gamescore();
     });
 
 })();
+
+/*  '/game/:id': function(id){} */
+
+    //Compare scores
+    /*directives = {
+        Sc: {
+        text: function(){
+            for(var i=0; i<SCOREAPP.ranking.rankings.length; i++) {
+                var points = this.rankings[i].Pw - this.rankings[i].Pl;
+                return points;
+            }
+        }
+        }
+    };*/
