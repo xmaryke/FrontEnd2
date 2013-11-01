@@ -39,12 +39,12 @@
                     <th>Result</th>
                     <th>Team</th>
                 </tr>
-                <tbody data-bind="objects">
-                <tr data-bind="object">
+                <tbody data-table="schedule">
+                <tr>
                     <td data-bind="start_time"></td>   
                     <td data-bind="team_1"><span data-bind="name"></span></td>
                     <td><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span>
-                    <a href="#/game" id="id">Edit</a>
+                    <a href="#" data-bind="idS">Edit</a>
                     </td>
                     <td data-bind="team_2"><span data-bind="name"></span></td>
                 </tr>
@@ -52,7 +52,7 @@
         </table>
         </section>
 
-        <section data-route="game">
+        <section data-route="game/:id">
             <h1>Game score</h1>
             <form id="postScoreForm" method="post" action="index.html#/schedule">
             <label for="team1score" data-bind="team_1"><span data-bind="name"></span></label>
