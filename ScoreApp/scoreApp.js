@@ -22,10 +22,10 @@ var SCOREAPP = SCOREAPP || {};
         init: function (){
             routie({
                 //Create pages
-                '/game': function() {
+                '/game/:id': function(id) {
                     document.getElementById('floatingBarsG').style.display = "block";
                 	console.log("routie game");
-                    SCOREAPP.datas.game();
+                    SCOREAPP.datas.game(id);
                 },
                 '/schedule': function() {
                     document.getElementById('floatingBarsG').style.display = "block";
@@ -68,6 +68,7 @@ var SCOREAPP = SCOREAPP || {};
 
     };
 
+
     // Post gamescore
     SCOREAPP.update = {
         gamescore: function (){
@@ -78,7 +79,7 @@ var SCOREAPP = SCOREAPP || {};
                             'Authorization':"bearer a6abfe991a"
                         },
                         {
-                            game_id: "127238",
+                            game_id: "129763",
                             team_1_score: "66",
                             team_2_score: "22",
                             is_final: "False"
@@ -95,9 +96,10 @@ var SCOREAPP = SCOREAPP || {};
 
     // Get data from API for each page
     SCOREAPP.datas = {
-        game: function () {    
-            if(!SCOREAPP.game){     
-                 var site = fermata.json("https://api.leaguevine.com/v1/games/127238/?access_token=857668913c");
+        game: function (id) {    
+            if(!SCOREAPP.game){  
+                 var gameUrl = "https://api.leaguevine.com/v1/games/" + id + "/";   
+                 var site = fermata.json(gameUrl);
                  var get = site.get(function (err, result) {
                    if (!err) {
                         SCOREAPP.game = result;
@@ -118,15 +120,16 @@ var SCOREAPP = SCOREAPP || {};
                  var site = fermata.json("https://api.leaguevine.com/v1/games/?tournament_id=19389&pool_id=19222");
                  var get = site.get(function (err, result) {
                    if (!err) {
-                        SCOREAPP.schedule = result;
-                        console.log(result);
-                        Transparency.render(qwery('[data-route=schedule]')[0], SCOREAPP.schedule);
+                        SCOREAPP.schedule = result.objects;
+                        console.log(result.objects);
+
+                        Transparency.render(qwery('[data-table=schedule]')[0], SCOREAPP.schedule, directives);
                         document.getElementById('floatingBarsG').style.display = "none";
                         SCOREAPP.router.change();
                    }
                 });
             }else {
-                        Transparency.render(qwery('[data-route=schedule]')[0], SCOREAPP.schedule);
+                        Transparency.render(qwery('[data-table=schedule]')[0], SCOREAPP.schedule, directives);
                         document.getElementById('floatingBarsG').style.display = "none";
                         SCOREAPP.router.change();
                    }  
@@ -151,6 +154,14 @@ var SCOREAPP = SCOREAPP || {};
         }
     };
 
+    //directives to bind game id to url
+    var directives = {
+        idS: {
+            href: function(params) {   
+            return params.text = "#/game/" + this.id;
+            }
+        }
+    };
 
     //DOM ready
     domready(function () {
@@ -161,16 +172,5 @@ var SCOREAPP = SCOREAPP || {};
 
 })();
 
-/*  '/game/:id': function(id){} */
 
-    //Compare scores
-    /*directives = {
-        Sc: {
-        text: function(){
-            for(var i=0; i<SCOREAPP.ranking.rankings.length; i++) {
-                var points = this.rankings[i].Pw - this.rankings[i].Pl;
-                return points;
-            }
-        }
-        }
-    };*/
+
