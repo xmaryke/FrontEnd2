@@ -24,11 +24,13 @@ var SCOREAPP = SCOREAPP || {};
                 //Create pages
                 '/game/:id': function(id) {
                     document.getElementById('floatingBarsG').style.display = "block";
+                    document.getElementById('navigation').style.display = "none";
                 	console.log("routie game");
                     SCOREAPP.datas.game(id);
                 },
                 '/schedule': function() {
                     document.getElementById('floatingBarsG').style.display = "block";
+                    document.getElementById('navigation').style.display = "block";
                 	console.log("routie schedule");
                     SCOREAPP.datas.schedule();
                 },
@@ -64,27 +66,53 @@ var SCOREAPP = SCOREAPP || {};
             if (!route) {
                 sections[0].classList.add('active');
             }
+        },
+
+        //Route without id, so the section exists 
+        gameSection: function(){
+            sections = qwery('section[data-route]'),
+            section = qwery('[data-route=game]')[0]; 
+
+             // Show active section, hide all other
+            if (section) {
+                for (var i=0; i < sections.length; i++){
+                    sections[i].classList.remove('active');
+                }
+                section.classList.add('active');
+            }
+
+            // Default route
+            if (!section) {
+                sections[0].classList.add('active');
+            }
         }
 
     };
 
 
+
     // Post gamescore
     SCOREAPP.update = {
-        gamescore: function (){
+        gameScore: function (form){
+            //Select the form
+            var team1Score = qwery('#postScoreForm [name=team1score]')[0];
+            var team2Score = qwery('#postScoreForm [name=team2score]')[0];
+            var isFinal = qwery('#postScoreForm [name=isfinal]')[0];
+            //Input data
+            var inputData = {
+                game_id: '127238', //hoe krijg ik hier het id uit de url?
+                team_1_score: team1Score.value,
+                team_2_score: team2Score.value,
+                is_final: isFinal.value
+            }
+
             var site = fermata.json("https://api.leaguevine.com/v1/game_scores/");
-            var post = site.post(
-                        {
+            var headers = {
                             'Content-Type':"application/json",
                             'Authorization':"bearer a6abfe991a"
-                        },
-                        {
-                            game_id: "129763",
-                            team_1_score: "66",
-                            team_2_score: "22",
-                            is_final: "False"
-                        }, 
-            function (error, result) {
+            }
+
+            site.post(headers, inputData, function (error, result) {
             if (!error) {
                 console.log("Posten is gelukt");
             } else {
@@ -105,13 +133,18 @@ var SCOREAPP = SCOREAPP || {};
                         SCOREAPP.game = result;
                         Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
                         document.getElementById('floatingBarsG').style.display = "none";
-                        SCOREAPP.router.change();
+                        SCOREAPP.router.gameSection();
+
+                        //Form function for edit score
+                        var postScoreForm = qwery('#postScoreForm');
+                        postScoreForm[0].onsubmit = SCOREAPP.update.gameScore();
+                   
                    }  
                 });
             }else{
                         Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
                         document.getElementById('floatingBarsG').style.display = "none";
-                        SCOREAPP.router.change();
+                        SCOREAPP.router.gameSection();
                    }
         },
 
@@ -167,7 +200,6 @@ var SCOREAPP = SCOREAPP || {};
     domready(function () {
         // Start application
         SCOREAPP.controller.init();
-        SCOREAPP.update.gamescore();
     });
 
 })();
