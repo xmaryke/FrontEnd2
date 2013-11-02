@@ -10,7 +10,7 @@
 	<header>
         <h1>Frisbee Score App</h1>
 		<h2>Tournament: Amsterdam Ultimate Autumn</h2>
-		<nav>
+		<nav id="navigation">
 			<ul>
 				<li><a href="#/schedule">Schedule</a></li>
 				<li><a href="#/ranking">Ranking</a></li>
@@ -52,17 +52,17 @@
         </table>
         </section>
 
-        <section data-route="game/:id">
+        <section data-route="game" id="gameScore">
             <h1>Game score</h1>
-            <form id="postScoreForm" method="post" action="index.html#/schedule">
+            <form id="postScoreForm" method="post" action="">
             <label for="team1score" data-bind="team_1"><span data-bind="name"></span></label>
             <input type="number" name="team1score" data-bind="team_1_score"><br/>
             <label for="team2score" data-bind="team_2"><span data-bind="name"></span></label>
             <input type="number" name="team2score" data-bind="team_2_score"><br/>
-            <label for="final">Is this the final score?</label>
-            <input name="final" type="radio" value="yes">Yes
-            <input name="final" type="radio" value="no">No <br/>
-            <input type="submit" value="Stuur score">
+            <label for="isfinal">Is this the final score?</label>
+            <input name="isfinal" type="radio" value="True">Yes
+            <input name="isfinal" type="radio" value="False">No <br/>
+            <input type="submit" value="Send score">
             </form>
         </section>
 
