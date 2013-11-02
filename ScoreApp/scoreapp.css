@@ -113,6 +113,18 @@ tr:nth-child(even){
 	background-color: rgba(131, 43, 173, 0.2);
 }
 
+/*    Game      */
+#gameScore{
+	margin-top: -3%;
+}
+
+#gameScore > form{
+	margin: 0 auto;
+	width: 200px;
+}
+
+
+
 /* ///////////////// LOADER \\\\\\\\\\\\\\\\\\\\\*/
 #floatingBarsG{
 position:relative;
