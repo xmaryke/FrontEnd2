@@ -18,9 +18,11 @@ Functionaliteitn score app:
 
 Breakdown van de score app:
 
+<pre>
 var SCOREAPP = SCOREAPP || {};
 
 (function(){
+
 	SCOREAPP.controller = {
 		init: function(){}
 	};
@@ -58,3 +60,4 @@ var SCOREAPP = SCOREAPP || {};
 
     domready(function () {});
 })();
+</pre>
