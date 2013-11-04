@@ -94,31 +94,46 @@ var SCOREAPP = SCOREAPP || {};
     // Post gamescore
     SCOREAPP.update = {
         gameScore: function (form){
-            //Select the form
+            //Select the form input field
             var team1Score = qwery('#postScoreForm [name=team1score]')[0];
             var team2Score = qwery('#postScoreForm [name=team2score]')[0];
             var isFinal = qwery('#postScoreForm [name=isfinal]')[0];
+
+            //Game id form url
+            var gameIdString = window.location.hash.slice(2).split('/');
+            var gameId = gameIdString[1];  
+
             //Input data
             var inputData = {
-                game_id: '127238', //hoe krijg ik hier het id uit de url?
+                game_id: gameId, 
                 team_1_score: team1Score.value,
                 team_2_score: team2Score.value,
                 is_final: isFinal.value
             }
 
-            var site = fermata.json("https://api.leaguevine.com/v1/game_scores/");
             var headers = {
                             'Content-Type':"application/json",
                             'Authorization':"bearer a6abfe991a"
             }
 
+            var site = fermata.json("https://api.leaguevine.com/v1/game_scores/");
             site.post(headers, inputData, function (error, result) {
             if (!error) {
                 console.log("Posten is gelukt");
+                console.log(inputData);
+
+                //Go to schedule page after posting data
+                window.location.href = "http://marrymedia.nl/frontend/#/schedule";
+                //Reload schedule page
+                window.location.reload(true);
+
             } else {
                 console.warn(error);
             }
             });
+
+            //prevent to refresh the page
+            return false; 
         }
     }
 
@@ -137,10 +152,11 @@ var SCOREAPP = SCOREAPP || {};
 
                         //Form function for edit score
                         var postScoreForm = qwery('#postScoreForm');
-                        postScoreForm[0].onsubmit = SCOREAPP.update.gameScore();
-                   
-                   }  
-                });
+                        postScoreForm[0].onsubmit = SCOREAPP.update.gameScore;
+                        
+                    
+                }  
+            });
             }else{
                         Transparency.render(qwery('[data-route=game]')[0], SCOREAPP.game);
                         document.getElementById('floatingBarsG').style.display = "none";
@@ -154,7 +170,6 @@ var SCOREAPP = SCOREAPP || {};
                  var get = site.get(function (err, result) {
                    if (!err) {
                         SCOREAPP.schedule = result.objects;
-                        console.log(result.objects);
 
                         Transparency.render(qwery('[data-table=schedule]')[0], SCOREAPP.schedule, directives);
                         document.getElementById('floatingBarsG').style.display = "none";
