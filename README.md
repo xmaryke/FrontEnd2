@@ -21,7 +21,6 @@ Breakdown van de score app:
 var SCOREAPP = SCOREAPP || {};
 
 (function(){
-
 	SCOREAPP.controller = {
 		init: function(){}
 	};
