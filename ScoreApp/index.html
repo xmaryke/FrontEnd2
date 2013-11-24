@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="scoreapp.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<title>Frisbee Score-app</title>
-	<link href="scoreapp.css" rel="stylesheet" type="text/css" />
+	
 </head>
 
 <body>
 	<header>
-        <h1>Frisbee Score App</h1>
-		<h2>Tournament: Amsterdam Ultimate Autumn</h2>
+        <div id="logo">
+            <a href="index.html">
+                <img src="frisbee.png" />
+                <h1>Frisbee Score App</h1>
+            </a>
+        </div>
+		<h2>Amsterdam Ultimate Autumn</h2>
 		<nav id="navigation">
 			<ul>
-				<li><a href="#/schedule">Schedule</a></li>
-				<li><a href="#/ranking">Ranking</a></li>
+				<li id="liSchedule"><a href="#/schedule">Schedule</a></li>
+				<li id="liRanking"><a href="#/ranking">Ranking</a></li>
 		    </ul>
 		</nav>
 	</header>
@@ -29,59 +36,50 @@
         <div class="blockG" id="rotateG_08"></div>
     </div>
 
-        <article id="content" class="col">
+    <article id="content">
         <section data-route="schedule" class="active">
-            <h1>Schedule: Pool D</h1>
-            <table>
-                <tr>
-                    <th>Monday 21 October</th>
-                    <th>Team</th>
-                    <th>Result</th>
-                    <th>Team</th>
-                </tr>
-                <tbody data-table="schedule">
-                <tr>
-                    <td data-bind="start_time"></td>   
-                    <td data-bind="team_1"><span data-bind="name"></span></td>
-                    <td><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span>
-                    <a href="#" data-bind="idS">Edit</a>
-                    </td>
-                    <td data-bind="team_2"><span data-bind="name"></span></td>
-                </tr>
-            </tbody>
-        </table>
+            <h1 id="move">Pool D</h1>
+            <div id="lijst">
+                <h2>Monday 21 October</h2>
+                <div data-list="schedule">
+                    <div id="vak">
+                        <p data-bind="teams"></p> 
+                        <a href="#" data-bind="idS"><p data-bind="scores"></p></a>
+                        <p data-bind="start_time"></p>
+                    </div>  
+                </div>
+            </div>
         </section>
 
         <section data-route="game" id="gameScore">
-            <h1>Game score</h1>
+            <div id="frisbee"><img src="frisbee2.png" /></div>
             <form id="postScoreForm" method="post" action="">
-            <label for="team1score" data-bind="team_1"><span data-bind="name"></span></label>
-            <input type="number" name="team1score" data-bind="team_1_score"><br/>
-            <label for="team2score" data-bind="team_2"><span data-bind="name"></span></label>
-            <input type="number" name="team2score" data-bind="team_2_score"><br/>
-            <label for="isfinal">Is this the final score?</label>
-            <input name="isfinal" type="radio" value="True">Yes
-            <input name="isfinal" type="radio" value="False">No <br/>
+                <h2>Game score</h2>
+                <div id="team1">
+                    <label for="team1score" data-bind="team_1"><span data-bind="name"></span></label><br/>
+                    <input type="number" name="team1score" data-bind="team_1_score"><br/>
+                </div>
+                <p>VS</p>
+                <div id="team2">
+                    <label for="team2score" data-bind="team_2"><span data-bind="name"></span></label><br/>
+                    <input type="number" name="team2score" data-bind="team_2_score"><br/>
+                </div>
             <input type="submit" value="Send score">
             </form>
         </section>
 
 		<section data-route="ranking">
-			<h1>Ranking: Pool D</h1>
+			<h1>Pool D</h1>
 			<table>
                 <tr>
                     <th>Team</th>
                     <th>Games</th>
-                    <th>Won</th>
-                    <th>Lost</th>
-                    <th>+/-</th>
+                    <th>Total<br/>points</th>
                 </tr>
             <tbody data-bind="standings">
                 <tr data-bind="standing">
                     <td data-bind="team"><span data-bind="name"></span></td>
                     <td data-bind="games_played"></td>
-                    <td data-bind="points_scored"></td>
-                    <td data-bind="points_allowed"></td>
                     <td data-bind="plus_minus"></td>
                 </tr>
             </tbody>
@@ -94,6 +92,8 @@
 	<script src="lib/ready.min.js" type="text/javascript"></script>
 	<script src="lib/qwery.min.js" type="text/javascript"></script>
 	<script src="lib/transparency.min.js" type="text/javascript"></script>
+    <script src="lib/quo.js"></script>
+    <script src="lib/quo.debug.js"></script>
 
 	<!-- Application -->
 	<script src="scoreApp.js"></script>
