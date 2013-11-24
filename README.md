@@ -21,10 +21,18 @@ Breakdown van de score app:
 <pre>
 var SCOREAPP = SCOREAPP || {};
 
+
 (function(){
 
 	SCOREAPP.controller = {
 		init: function(){}
+	};
+
+	SCOREAPP.feedback = {
+		showLoader: function(){},
+		hideLoader: function(){},
+		liRankingActive: function() {},
+		liScheduleActive: function() {}
 	};
 
 	SCOREAPP.router = {
@@ -36,6 +44,7 @@ var SCOREAPP = SCOREAPP || {};
 				'*': function() {} 
 			});
 		},
+		swipe: function() {},
 		change: function () {},
 		gameSection: function(){}
 	};
@@ -57,6 +66,14 @@ var SCOREAPP = SCOREAPP || {};
 			site.get(function (err, result) {});
 		}
 	};
+
+	var directives = {};
+
+	SCOREAPP.animation = {
+		init: function(){},
+		doMove: function(){} 
+	};
+
 
     domready(function () {});
 })();
